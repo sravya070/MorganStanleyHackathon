@@ -1,0 +1,37 @@
+{
+	[
+	
+		{
+			city : 'ABC',
+			avgTemp : '32',
+		},
+		{
+			city : 'ABC',
+			avgTemp : '32'
+		},
+		{
+			city : 'ABC',
+			avgTemp : '25'
+		},
+		{
+			city : 'DEF',
+			avgTemp : '23'
+		},
+		{
+			city : '123',
+			avgTemp : '22'
+		},
+		{
+			city : '456',
+			avgTemp : '20'
+		},
+		{
+			city : '789',
+			avgTemp : '31'
+		},
+		{
+			city : '000',
+			avgTemp : '36'
+		}
+	]
+}

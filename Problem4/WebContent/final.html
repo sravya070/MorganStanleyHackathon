@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+
+    <title>How to Parse a JSON file using jQuery</title>
+    
+    <style>
+        body{
+            text-align: center;
+            font-family: arial;
+        }
+
+        .button{
+            margin:20px;
+            font-size:16px;
+            font-weight: bold;
+            padding:5px 10px;
+        }
+        
+        
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+ 
+    </style>
+
+
+</head>
+<body>
+   
+    
+    
+    <span id="results"></span>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script>
+		var data;
+        //When DOM loaded we attach click event to button
+        $(document).ready(function() {
+            
+            //after button is clicked we download the data
+          // $('.button').click(function(){
+
+                //start ajax request
+                $.ajax({
+                    url: "data1.json",
+                    //force to handle it as text
+                    dataType: "text",
+                    
+                    success: function(data) {
+                        
+                        //data downloaded so we call parseJSON function 
+                        //and pass downloaded data
+                       
+                        var json = $.parseJSON(data);
+                        console.log(JSON.stringify(json));
+                        //now json variable contains data in json format
+                        //let's display a few items
+                       $('#results').html('');
+                        for(var i=0;i<json.list.length;i++){
+                        $('#results').html('Max temp: ' + JSON.stringify(json.list[i].main.temp_max) + '<br />Min Temp: ' + JSON.stringify(json.list[i].main.temp_min));
+                        } }
+                });
+            //});
+        });
+   
+
+/*	var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+	var parseDate = d3.time.format("%d-%b-%y").parse;
+
+	var x = d3.time.scale()
+    .range([0, width]);
+
+	var y = d3.scale.linear()
+    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.close); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+data.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain(d3.extent(data, function(d) { return d.close; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Price ($)");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line); */
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{name :company ,
+ details :
+	  {
+      company : abc,
+      value   :10
+       },
+        {
+      company : de,
+      value   :10
+       },
+        {
+      company : addc,
+      value   :10
+       }
+
+}

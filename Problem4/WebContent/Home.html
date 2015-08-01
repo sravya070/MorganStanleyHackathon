@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+
+    <title>Real Time Metrics Dashboard</title>
+    
+    <style>
+        body{
+            text-align: center;
+            font-family: arial;
+        }
+
+        .button{
+            margin:20px;
+            font-size:16px;
+            font-weight: bold;
+            padding:5px 10px;
+        }
+        
+        
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+ 
+    </style>
+
+
+</head>
+<body>
+   
+    
+    
+    <table id="personDataTable">
+    <tr>
+        <th>City</th>
+        <th>Average Temperature</th>
+        
+    </tr>
+    
+</table>
+     <svg id="visualisation" width="1000" height="500"></svg>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script>
+		var data;
+        //When DOM loaded we attach click event to button
+        $(document).ready(function() {
+            
+            //after button is clicked we download the data
+          // $('.button').click(function(){
+              setInterval(function () {
+                //start ajax request
+                $.ajax({
+                   // url: "http://api.openweathermap.org/data/2.5/box/city?bbox=12,32,15,37,10,200&cluster=yes",
+                		   url:"data1.json",
+                    //force to handle it as text
+                    dataType: "text",
+                  // method :'GET',
+                    
+                    success: function(data) {
+                        
+                        //data downloaded so we call parseJSON function 
+                        //and pass downloaded data
+                       
+                        var resp = JSON.parse(data);
+   console.log('response: ' + JSON.stringify(resp.list));
+   var jsonData = [];
+   for(var i=0;i<resp.list.length;i++)
+   {
+        var temp = {};
+        temp["city"] = resp.list[i].name;
+        temp["avg_temp"] = (resp.list[i].main.temp_max + resp.list[i].main.temp_min)/2;
+        //console.log("HERE::"+JSON.stringify(temp));
+        jsonData.push(temp);
+   }
+ //  console.log("JSON::"+JSON.stringify(jsonData)) ;
+                        
+                       $('#results').html('');
+
+                       $('#personDataTable').html('');
+                           for (var i = 0; i < jsonData.length; i++) {
+                               drawRow(jsonData[i]);
+                           }
+                       
+                        
+                       function drawRow(rowData) {
+                           var row = $("<tr />")
+                           $("#personDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+                           row.append($("<td>" + rowData.city + "</td>"));
+                           row.append($("<td>" + rowData.avg_temp + "</td>"));
+                           //row.append($("<td>" + rowData.lastName + "</td>"));
+                       }
+
+                      
+                       // for(var i=0;i<json.list.length;i++){
+                        //$('#results').html('Max temp: ' + JSON.stringify(json.list[i].main.temp_max) + '<br />Min Temp: ' + JSON.stringify(json.list[i].main.temp_min));
+                        } 
+                });
+            //});
+        });
+       
+      
+          },6000); 	 
+     
+
+</script>
+</body>
+</html>
